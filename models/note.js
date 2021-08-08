@@ -12,9 +12,16 @@ const noteSchema = new mongoose.Schema({
 		required: true,
 	},
 	important: Boolean,
+	user: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User', // references the User model
+		},
+	],
 })
 
 noteSchema.set('toJSON', {
+	// this schema setting is only for how server should look ie./api/notes
 	transform: (document, returnedObject) => {
 		returnedObject.id = returnedObject._id.toString()
 		delete returnedObject._id
